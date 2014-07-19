@@ -1,36 +1,34 @@
-function checkRegExp () {
-  this.submitElement = submitElem;
+function checkNumericalRegExp () {
+  this.str = "^[0-9]+$";
 }
 
-checkRegExp.prototype.validate = function() {
-  if(patt.test(NumberElem.value)) {
-    ResultElem.value = "true";
-    return true;
-  }
-  else {
-    ResultElem.value = "false";
-    return false
-  }
+checkNumericalRegExp.prototype.validate = function() {
+  var patt = new RegExp(this.str);
+  return (patt.test(NumberElem.value));
 };
 
-checkRegExp.prototype.bindEvents = function() {
+checkNumericalRegExp.prototype.setResultBoxValue = function(returnValue) {
+  ResultElem.value = returnValue; 
+};
+
+checkNumericalRegExp.prototype.bindEvents = function() {
   var _this = this;
-  this.submitElement.addEventListener("click",function(e) {
-  var result =  _this.validate();
-  if(!result) {
-    e.stopPropogation();
-  }
-  location.reload();
+  submitElem.addEventListener("click",function(e) {
+    if (_this.validate()) {
+      _this.setResultBoxValue("true");
+    }
+    else { 
+      _this.setResultBoxValue("false");
+      e.stopPropogation();
+    }
   });
 };
 
-function createRegExp () {
-  var checkRegularExpression = new checkRegExp();
+function createNumericalRegExp () {
+  var checkRegularExpression = new checkNumericalRegExp();
   checkRegularExpression.bindEvents();
 }
 var NumberElem = document.getElementById("numberId"),
     ResultElem = document.getElementById("resultId"),
-    submitElem = document.getElementById("submitId"),
-    str = "^[0-9]",
-    patt = new RegExp(str);
-window.onload = createRegExp();
+    submitElem = document.getElementById("submitId");
+window.onload = createNumericalRegExp();
