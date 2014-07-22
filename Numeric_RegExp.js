@@ -27,8 +27,8 @@ checkNumericalRegExp.prototype.bindEvents = function() {
 };
 
 function createNumericalRegExp (getElements) {
-  var checkRegularExpression = new checkNumericalRegExp();
-  checkRegularExpression.bindEvents(getElements);
+  var checkRegularExpression = new checkNumericalRegExp(getElements);
+  checkRegularExpression.bindEvents();
 }
 
 var STR = "^[0-9]+$";
