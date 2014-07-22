@@ -1,19 +1,21 @@
-function checkNumericalRegExp () {
-  this.str = "^[0-9]+$";
+function checkNumericalRegExp (getElements) {
+  this.NumberElement = getElements.NumberElem;
+  this.ResultElement = getElements.ResultElem;
+  this.submitElement = getElements.submitElem;
 }
 
 checkNumericalRegExp.prototype.validate = function() {
-  var patt = new RegExp(this.str);
-  return (patt.test(NumberElem.value));
+  var PATT = new RegExp(STR);
+  return (PATT.test(this.NumberElement.value));
 };
 
 checkNumericalRegExp.prototype.setResultBoxValue = function(returnValue) {
-  ResultElem.value = returnValue; 
+  this.ResultElement.value = returnValue; 
 };
 
 checkNumericalRegExp.prototype.bindEvents = function() {
   var _this = this;
-  submitElem.addEventListener("click",function(e) {
+  this.submitElement.addEventListener("click",function(e) {
     if (_this.validate()) {
       _this.setResultBoxValue("true");
     }
@@ -24,11 +26,15 @@ checkNumericalRegExp.prototype.bindEvents = function() {
   });
 };
 
-function createNumericalRegExp () {
+function createNumericalRegExp (getElements) {
   var checkRegularExpression = new checkNumericalRegExp();
-  checkRegularExpression.bindEvents();
+  checkRegularExpression.bindEvents(getElements);
 }
-var NumberElem = document.getElementById("numberId"),
-    ResultElem = document.getElementById("resultId"),
-    submitElem = document.getElementById("submitId");
-window.onload = createNumericalRegExp();
+
+var STR = "^[0-9]+$";
+var elements = {
+  "NumberElem" : document.getElementById("numberId"),
+  "ResultElem" : document.getElementById("resultId"),
+  "submitElem" : document.getElementById("submitId")
+}; 
+window.onload = createNumericalRegExp(elements);
